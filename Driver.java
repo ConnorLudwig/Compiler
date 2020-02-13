@@ -12,7 +12,6 @@ import java.nio.*;
 public class Driver {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        try {
 
             //gets file name from user
             FileInputStream file = new FileInputStream(args[0]);
@@ -33,10 +32,6 @@ public class Driver {
                 //goes through tokens until there are no more
                 token = lexer.nextToken();
             }
-        } catch (Exception e) {
-            // catch to handle file not found or lexing error
-            System.out.println("Lexing failed: " + e);
-        }
-    }
+      }
 
 }
