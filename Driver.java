@@ -10,7 +10,7 @@ import java.util.*;
 import java.nio.*;
 
 public class Driver {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner input = new Scanner(System.in);
 
             //gets file name from user
