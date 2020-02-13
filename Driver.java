@@ -2,8 +2,6 @@
 //LCK
 
 
-package compilers;
-
 //Imports for antlr and java libraries
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
@@ -18,7 +16,7 @@ public class Driver {
             System.out.print("Enter the name of the file you want to test: ");
             String file_name = input.next();
             System.out.println("The file to test is:  " + file_name);
-            
+
             FileInputStream file = new FileInputStream(file_name);
             CharStream stream = new ANTLRInputStream(file);
             LITTLELexer lexer = new LITTLELexer(stream);
@@ -35,5 +33,5 @@ public class Driver {
             System.out.println("Lexing failed: " + e);
         }
     }
-    
+
 }
