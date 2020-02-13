@@ -23,8 +23,8 @@ public class Driver {
             Vocabulary vocab = lexer.getVocabulary();
             Token token = lexer.nextToken();
             while (token.getType() != Token.EOF) {
-                System.out.println(vocab.getSymbolicName(token.getType()) + "(Value = '" + token.getText() + "')");
-                System.out.println("");
+              System.out.println("Token Type: " + vocab.getSymbolicName(token.getType()));
+              System.out.println("Value: " + token.getText());
                 //System.out.println("Value: " + token.getText());
                 token = lexer.nextToken();
             }
