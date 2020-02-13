@@ -13,23 +13,28 @@ public class Driver {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         try {
-            System.out.print("Enter the name of the file you want to test: ");
-            String file_name = input.next();
-            System.out.println("The file to test is:  " + file_name);
 
-            FileInputStream file = new FileInputStream(file_name);
+            //gets file name from user
+            FileInputStream file = new FileInputStream(args[0]);
+
+            //creates antlr instances.
+            //.jar antlr file must be in the classpath for this to compile
             CharStream stream = new ANTLRInputStream(file);
             LITTLELexer lexer = new LITTLELexer(stream);
             Vocabulary vocab = lexer.getVocabulary();
             Token token = lexer.nextToken();
+
             while (token.getType() != Token.EOF) {
+
+              //prints in the format described by instructions
               System.out.println("Token Type: " + vocab.getSymbolicName(token.getType()));
               System.out.println("Value: " + token.getText());
-                //System.out.println("Value: " + token.getText());
+
+                //goes through tokens until there are no more
                 token = lexer.nextToken();
             }
         } catch (Exception e) {
-            // General catch to handle any faulty lexing
+            // catch to handle file not found or lexing error
             System.out.println("Lexing failed: " + e);
         }
     }
