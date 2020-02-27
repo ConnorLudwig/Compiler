@@ -27,8 +27,8 @@ ENDWHILE            : 'ENDWHILE';
 //OPERATORS
 ASSIGNOP            : ':=';
 COMMA               : ',';
-OPAR             : '(';
-CPAR            : ')';
+OPAR                : '(';
+CPAR                : ')';
 SEMICOLON           : ';';
 ADDOP               : '+' | '-';
 MULOP               : '*' | '/';
@@ -54,7 +54,6 @@ OPERATOR            : ASSIGNOP
                     | COMMA
                     ;
 WHITESPACE          : [ \n\t\r]+ -> skip;
-
 
 
 /* Program */
