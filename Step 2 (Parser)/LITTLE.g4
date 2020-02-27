@@ -1,67 +1,51 @@
 grammar LITTLE;
-
-fragment DIGIT0     : '0'..'9' ;
-fragment DIGIT1     : '1'..'9' ;
-fragment NL         : '\r'? '\n'
-                    | '\r' ;
+tokens: .*? EOF;
 
 //KEYWORDS
-PROGRAM             : 'PROGRAM';
-BEGIN               : 'BEGIN';
-END                 : 'END';
-FUNCTION            : 'FUNCTION';
-READ                : 'READ';
-WRITE               : 'WRITE';
-IF                  : 'IF';
-ELSE                : 'ELSE';
-FOR                 : 'FOR';
-RETURN              : 'RETURN';
-INT                 : 'INT';
-VOID                : 'VOID';
-STRING              : 'STRING';
-FLOAT               : 'FLOAT';
-WHILE               : 'WHILE';
-ENDIF               : 'ENDIF';
-ENDWHILE            : 'ENDWHILE';
+PROGRAM : 'PROGRAM';
+BEGIN : 'BEGIN';
+END : 'END';
+FUNCTION : 'FUNCTION';
+READ : 'READ';
+WRITE : 'WRITE';
+IF : 'IF';
+ELSE : 'ELSE';
+FOR : 'FOR';
+RETURN : 'RETURN';
+INT : 'INT';
+VOID : 'VOID';
+STRING : 'STRING';
+FLOAT : 'FLOAT';
+WHILE : 'WHILE';
+ENDIF : 'ENDIF';
+ENDWHILE : 'ENDWHILE';
 
 //OPERATORS
-ASSIGNOP            : ':=';
-COMMA               : ',';
-OPAR                : '(';
-CPAR                : ')';
-SEMICOLON           : ';';
-ADDOP               : '+' | '-';
-MULOP               : '*' | '/';
-COMPOP              : '<' | '>' | '=' | '!=' | '<=' | '>=';
+ASSIGNOP : ':=';
+COMMA : ',';
+OPAR : '(';
+CPAR : ')';
+SEMICOLON : ';';
+ADDOP : '+' | '-';
+MULOP : '*' | '/';
+COMPOP : '<' | '>' | '=' | '!=' | '<=' | '>=';
 
 //TOKENS
-IDENTIFIER          : ([a-z] | [A-Z]) ([a-z]+ | [A-Z]+ | DIGIT0+)* ;
-INTLITERAL          : DIGIT1* DIGIT0+ ;
-FLOATLITERAL        : INTLITERAL '.' DIGIT0*
-                    | '.' DIGIT0+
-                    ;
-STRINGLITERAL       : '"' ~('"')* '"' ;
-COMMENT             : '--' ~[\r\n]* NL -> skip
-                    ;
+IDENTIFIER : [a-zA-Z]+[a-zA-Z0-9]*;
+INTLITERAL : [0-9]+;
+FLOATLITERAL : [0-9]*?'.'[0-9]+;
+STRINGLITERAL : '"'(~'"')*?'"';
+COMMENT : '--'(~'\n')* -> skip;
 
-OPERATOR            : ASSIGNOP
-                    | ADDOP
-                    | MULOP
-                    | COMPOP
-                    | OPAR
-                    | CPAR
-                    | SEMICOLON
-                    | COMMA
-                    ;
-WHITESPACE          : [ \n\t\r]+ -> skip;
-
+OPERATOR : ASSIGNOP| ADDOP | MULOP | COMPOP | OPAR | CPAR | SEMICOLON | COMMA;
+WS : [ \t\r\n]+ -> skip;
+empty : ;
 
 /* Program */
-program :     PROGRAM id BEGIN pgm_bdy END;
+program : PROGRAM id BEGIN pgm_bdy END;
 id : IDENTIFIER;
 pgm_bdy : decl func_declarations;
 decl : string_decl decl | var_decl decl | empty;
-empty : ;
 
 /* Global String Decleration */
 string_decl : STRING id ASSIGNOP str SEMICOLON;
@@ -111,7 +95,6 @@ primary : OPAR expr CPAR | id | INTLITERAL | FLOATLITERAL;
 if_stmt : IF OPAR cond CPAR decl stmt_list else_part ENDIF;
 else_part : ELSE decl stmt_list | empty;
 cond : expr COMPOP expr;
-
 
 /* While Statements */
 while_stmt : WHILE OPAR cond CPAR decl stmt_list ENDWHILE;
