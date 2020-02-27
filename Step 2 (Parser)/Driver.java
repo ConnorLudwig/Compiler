@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args) throws Exception {
-        Scanner input = new Scanner(System.in);
+            Scanner input = new Scanner(System.in);
 
             //gets file name from user
             FileInputStream file = new FileInputStream(args[0]);
