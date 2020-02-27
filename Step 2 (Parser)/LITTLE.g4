@@ -1,3 +1,5 @@
+//Grammar for Compilers
+
 grammar LITTLE;
 tokens: .*? EOF;
 
