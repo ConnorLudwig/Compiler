@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args) throws Exception {
-        Scanner input = new Scanner(System.in);
+            Scanner input = new Scanner(System.in);
 
             //gets file name from user
             FileInputStream file = new FileInputStream(args[0]);
@@ -40,12 +40,18 @@ public class Driver {
             LITTLELexer lexer = new LITTLELexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             LITTLEParser parser = new LITTLEParser(tokens);
-            parser.removeErrorListeners();
+
+            //stops errors from printing to the console 
+            parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
             parser.program();
-            int errors = parser.getNumberOfSyntaxErrors();
+
+            boolean accepted = false;
+            if(parser.getNumberOfSyntaxErrors() == 0){
+              accepted = true;
+            }
             //System.out.println(errors); //test print to see if it is printing correct # of errors
             //Prints for Step 2
-            if(errors == 0) {
+            if(accepted) {
                 System.out.println("Accepted");
             }
             else {
