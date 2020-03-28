@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package compiler;
+
 
 //Imports for antlr and java libraries
 import org.antlr.v4.runtime.*;
@@ -25,19 +20,7 @@ public class Driver {
 
         //gets file name from user
         FileInputStream file = new FileInputStream(args[0]);
-        CharStream stream = new ANTLRInputStream(file);
-        LITTLELexer lexer = new LITTLELexer(stream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        LITTLEParser parser = new LITTLEParser(tokens);
-        Listener listener = new Listener();
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(listener, parser.program());
-        symbolTables = new Stack<SymbolTable>(); //new stack of symbol tables
-        symbolTables = listener.getSymbolTables();
-        SymbolTable.prettyPrint(symbolTables);
-        
-        
-        
+
 
         /* Code from step 1
             Vocabulary vocab = lexer.getVocabulary();
@@ -50,12 +33,17 @@ public class Driver {
                 token = lexer.nextToken();
             }
          */
+
         //creates antlr instances.
         //.jar antlr file must be in the classpath for this to compile
+        CharStream stream = new ANTLRInputStream(file);
+        LITTLELexer lexer = new LITTLELexer(stream);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        LITTLEParser parser = new LITTLEParser(tokens);
 
         /*
         Code from step 2
-        //stops errors from printing to the console 
+        //stops errors from printing to the console
         parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
         parser.program();
 
@@ -71,8 +59,13 @@ public class Driver {
             System.out.println("Not accepted");
         }
         */
-        
-        
+
+        Listener listener = new Listener(); //creates new listener to be used.
+        ParseTreeWalker walker = new ParseTreeWalker(); //creates walker
+        walker.walk(listener, parser.program()); //walker walks the program to
+        symbolTables = new Stack<>(); //new stack of symbol tables
+        symbolTables = listener.getSymbolTables();
+        SymbolTable.prettyPrint(symbolTables);
     }
 
 }
