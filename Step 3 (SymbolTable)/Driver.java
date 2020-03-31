@@ -1,4 +1,5 @@
-
+//CSCI-468 Compilers Part 3
+//LCK
 
 //Imports for antlr and java libraries
 import org.antlr.v4.runtime.*;
@@ -65,7 +66,7 @@ public class Driver {
         walker.walk(listener, parser.program()); //walker walks the program to
         symbolTables = new Stack<>(); //new stack of symbol tables
         symbolTables = listener.getSymbolTables();
-        SymbolTable.prettyPrint(symbolTables);
+        SymbolTable.prettyPrint(symbolTables); //prints table
     }
 
 }
